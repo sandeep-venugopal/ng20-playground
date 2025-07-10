@@ -17,6 +17,9 @@ export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, 
   }
   ngOnInit(): void {
     console.log("---Inside Dashboard comp#ngOnInit ---");
+    setTimeout(() => {
+      this.appConfig.cdStrategy = 'OnPush';
+    }, 5000);
   }
   ngDoCheck(): void {
     console.log("---Inside Dashboard comp#ngDoCheck ---");
