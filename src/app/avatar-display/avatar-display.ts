@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 
 @Component({
@@ -8,9 +8,24 @@ import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit,
   styleUrl: './avatar-display.scss'
 })
 export class AvatarDisplay implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
+  @Input() profile: any;
+  @Input() appConfig: any;
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside AvatarDisplay comp#ngOnChanges ---");
+    // Important: Check if the reference actually changed
+    console.log(changes);
+    if (changes['profile']) {
+      console.log('Current Profile Value:', changes['profile'].currentValue);
+    } else {
+       console.warn('profile object reference did NOT change.');
+    }
+
+    if (changes['appConfig']) {
+      console.log(JSON.stringify(changes['appConfig'].currentValue, null, 2));      
+    } else {
+       console.warn('appConfig object reference did NOT change.');
+    }
   }
   ngOnInit(): void {
     console.log("---Inside AvatarDisplay comp#ngOnInit ---");

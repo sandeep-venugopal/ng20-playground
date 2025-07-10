@@ -11,14 +11,24 @@ import { AvatarDisplay } from "../avatar-display/avatar-display";
 export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
 
   @Input() appConfig: any;
-  
+  profile: any = {
+    name: 'Sandeep',
+    age: 38,
+    job: 'SSE'
+  }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("---Inside Dashboard comp#ngOnChanges ---");
+    console.log("---Inside Dashboard comp#ngOnChanges ---", changes);
   }
   ngOnInit(): void {
     console.log("---Inside Dashboard comp#ngOnInit ---");
     setTimeout(() => {
-      this.appConfig.cdStrategy = 'OnPush';
+      // this.appConfig.angular.cdStrategy = 'OnPush';
+      // this.appConfig.client = "PostgresSql";
+      this.profile = {
+        name: 'Sandeep',
+        age: 38,
+        job: 'SSE'
+      }
     }, 5000);
   }
   ngDoCheck(): void {

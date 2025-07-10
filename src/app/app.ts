@@ -12,9 +12,12 @@ export class App implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterC
   protected title = 'ng20-playground';
 
   appConfig: any = {
-    version: 1.0,
-    cdStrategy: 'Default',
-    style: 'scss'
+    angular: {
+      version: 20.0,
+      cdStrategy: 'Default',
+      style: 'scss'
+    },
+    client: 'Sandeep'
   }
 
   ngOnChanges(changes: SimpleChanges): void {

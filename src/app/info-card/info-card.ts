@@ -9,9 +9,9 @@ import { AvatarDisplay } from "../avatar-display/avatar-display";
 })
 export class InfoCard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Input() appConfig: any;
-  
+
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("---Inside InfoCard comp#ngOnChanges ---");
+    console.log("---Inside InfoCard comp#ngOnChanges ---", changes);
   }
   ngOnInit(): void {
     console.log("---Inside InfoCard comp#ngOnInit ---");
