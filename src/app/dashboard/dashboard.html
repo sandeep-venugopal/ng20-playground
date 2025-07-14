@@ -1,4 +1,4 @@
 <h3>Dashboard!</h3>
-<app-info-card [appConfig]="appConfig" [profile]="profile">
-    <app-avatar-display [profile]="profile"></app-avatar-display>
+<app-info-card [appConfig]="appConfig">
+    <app-avatar-display [profile]="profile" (testOutputEmit)="onBtnClick()"></app-avatar-display>
 </app-info-card>

@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, output, SimpleChanges } from '@angular/core';
 import { AvatarDisplay } from "../avatar-display/avatar-display";
 
 @Component({
@@ -9,9 +9,13 @@ import { AvatarDisplay } from "../avatar-display/avatar-display";
 })
 export class InfoCard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Input() appConfig: any;
-
+  
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("---Inside InfoCard comp#ngOnChanges ---", changes);
+    console.log("---Inside InfoCard comp#ngOnChanges ---");
+    if (changes['appConfig']) {
+      console.log('Previous Value: ' + changes['appConfig'].previousValue);
+      console.log('Current Value' + changes['appConfig'].currentValue);
+    }
   }
   ngOnInit(): void {
     console.log("---Inside InfoCard comp#ngOnInit ---");
@@ -30,5 +34,9 @@ export class InfoCard implements OnChanges, OnInit, DoCheck, AfterContentInit, A
   }
   ngAfterViewChecked(): void {
     console.log("---Inside InfoCard comp#ngAfterViewChecked ---");
+  }
+
+  onBtnClick() {
+    console.log(`Inside Dashboard#onBtnClick`);
   }
 }

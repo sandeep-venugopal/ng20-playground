@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 
 @Component({
@@ -10,7 +10,8 @@ import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit,
 export class AvatarDisplay implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Input() profile: any;
   @Input() appConfig: any;
-
+  @Output() testOutputEmit = new EventEmitter();
+  
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside AvatarDisplay comp#ngOnChanges ---");
     // Important: Check if the reference actually changed
@@ -45,4 +46,11 @@ export class AvatarDisplay implements OnChanges, OnInit, DoCheck, AfterContentIn
   ngAfterViewChecked(): void {
     console.log("---Inside AvatarDisplay comp#ngAfterViewChecked ---");
   }
+
+  onBtnClick() {
+    console.log(`Inside AvatarDisplay#onBtnClick`);
+    this.profile.name = "Lords";
+    this.testOutputEmit.emit();
+  }
+
 }

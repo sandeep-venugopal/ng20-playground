@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { InfoCard } from "../info-card/info-card";
 import { AvatarDisplay } from "../avatar-display/avatar-display";
 
@@ -11,25 +11,32 @@ import { AvatarDisplay } from "../avatar-display/avatar-display";
 export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
 
   @Input() appConfig: any;
+  @Output() testOutputEmit = new EventEmitter();
+
   profile: any = {
     name: 'Sandeep',
     age: 38,
     job: 'SSE'
   }
+
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("---Inside Dashboard comp#ngOnChanges ---", changes);
+    console.log("---Inside Dashboard comp#ngOnChanges ---");
+    if (changes['appConfig']) {
+      console.log('P Value: ' + changes['appConfig'].previousValue);
+      console.log('C Value' + changes['appConfig'].currentValue);
+    }
   }
   ngOnInit(): void {
     console.log("---Inside Dashboard comp#ngOnInit ---");
-    setTimeout(() => {
-      // this.appConfig.angular.cdStrategy = 'OnPush';
-      // this.appConfig.client = "PostgresSql";
-      this.profile = {
-        name: 'Sandeep',
-        age: 38,
-        job: 'SSE'
-      }
-    }, 5000);
+    // setTimeout(() => {
+    //   // this.appConfig.angular.cdStrategy = 'OnPush';
+    //   // this.appConfig.client = "PostgresSql";
+    //   this.profile = {
+    //     name: 'Sandeep',
+    //     age: 38,
+    //     job: 'SSE'
+    //   }
+    // }, 10000);
   }
   ngDoCheck(): void {
     console.log("---Inside Dashboard comp#ngDoCheck ---");
@@ -45,5 +52,10 @@ export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, 
   }
   ngAfterViewChecked(): void {
     console.log("---Inside Dashboard comp#ngAfterViewChecked ---");
+  }
+
+  onBtnClick() {
+    console.log(`Inside Dashboard#onBtnClick`);
+    this.testOutputEmit.emit();
   }
 }

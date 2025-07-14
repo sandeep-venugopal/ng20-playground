@@ -27,7 +27,7 @@ export class App implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterC
     console.log("---Inside App comp#ngOnInit ---");
   }
   ngDoCheck(): void {
-    console.log("---Inside App comp#ngDoCheck ---");
+    console.log("\n\n\n---Inside App comp#ngDoCheck ---");
   }
   ngAfterContentInit(): void {
     console.log("---Inside App comp#ngAfterContentInit ---");
@@ -40,5 +40,16 @@ export class App implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterC
   }
   ngAfterViewChecked(): void {
     console.log("---Inside App comp#ngAfterViewChecked ---");
+  }
+
+  onBtnClick() {
+    console.log(`Inside App#onBtnClick`);
+
+    console.log("Inside btn Click ---START");
+    // this.appConfig.angular.version = 30;
+    setTimeout(() => {
+      this.appConfig.angular.version = 20.1;
+    }, 60000);
+    console.log("Inside btn Click ---END");
   }
 }
