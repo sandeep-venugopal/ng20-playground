@@ -1,20 +1,22 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, output, SimpleChanges } from '@angular/core';
 import { AvatarDisplay } from "../avatar-display/avatar-display";
 
 @Component({
   selector: 'app-info-card',
   imports: [AvatarDisplay],
   templateUrl: './info-card.html',
-  styleUrl: './info-card.scss'
+  styleUrl: './info-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfoCard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Input() appConfig: any;
+
   
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside InfoCard comp#ngOnChanges ---");
     if (changes['appConfig']) {
-      console.log('Previous Value: ' + changes['appConfig'].previousValue);
-      console.log('Current Value' + changes['appConfig'].currentValue);
+      console.log('Previous Value: ', changes['appConfig'].previousValue);
+      console.log('Current Value', changes['appConfig'].currentValue);
     }
   }
   ngOnInit(): void {

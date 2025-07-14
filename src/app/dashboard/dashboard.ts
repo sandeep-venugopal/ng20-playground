@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { InfoCard } from "../info-card/info-card";
 import { AvatarDisplay } from "../avatar-display/avatar-display";
 
@@ -6,7 +6,8 @@ import { AvatarDisplay } from "../avatar-display/avatar-display";
   selector: 'app-dashboard',
   imports: [InfoCard, AvatarDisplay],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  styleUrl: './dashboard.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
 
@@ -19,27 +20,23 @@ export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, 
     job: 'SSE'
   }
 
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside Dashboard comp#ngOnChanges ---");
     if (changes['appConfig']) {
-      console.log('P Value: ' + changes['appConfig'].previousValue);
-      console.log('C Value' + changes['appConfig'].currentValue);
+      console.log("P Value: ", changes['appConfig'].previousValue);
+      console.log("C Value: ", changes['appConfig'].currentValue);
     }
   }
   ngOnInit(): void {
     console.log("---Inside Dashboard comp#ngOnInit ---");
-    // setTimeout(() => {
-    //   // this.appConfig.angular.cdStrategy = 'OnPush';
-    //   // this.appConfig.client = "PostgresSql";
-    //   this.profile = {
-    //     name: 'Sandeep',
-    //     age: 38,
-    //     job: 'SSE'
-    //   }
-    // }, 10000);
   }
+
   ngDoCheck(): void {
-    console.log("---Inside Dashboard comp#ngDoCheck ---");
+    console.log("---Inside Dashboard comp#ngDoCheck ---", this.appConfig);
   }
   ngAfterContentInit(): void {
     console.log("---Inside Dashboard comp#ngAfterContentInit ---");
@@ -55,7 +52,6 @@ export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, 
   }
 
   onBtnClick() {
-    console.log(`Inside Dashboard#onBtnClick`);
-    this.testOutputEmit.emit();
+   this.testOutputEmit.emit();
   }
 }

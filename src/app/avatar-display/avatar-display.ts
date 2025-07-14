@@ -1,11 +1,12 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 
 @Component({
   selector: 'app-avatar-display',
   imports: [],
   templateUrl: './avatar-display.html',
-  styleUrl: './avatar-display.scss'
+  styleUrl: './avatar-display.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarDisplay implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Input() profile: any;

@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Dashboard } from "./dashboard/dashboard";
 
@@ -43,13 +43,23 @@ export class App implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterC
   }
 
   onBtnClick() {
-    console.log(`Inside App#onBtnClick`);
+    console.log(`Inside Dashboard#onBtnClick`);
 
     console.log("Inside btn Click ---START");
-    // this.appConfig.angular.version = 30;
+
     setTimeout(() => {
-      this.appConfig.angular.version = 20.1;
-    }, 60000);
+      console.log(`Inside setTimeout..`);
+      this.appConfig = {
+        angular: {
+          version: 30.0,
+          cdStrategy: 'Default',
+          style: 'scss'
+        },
+        client: 'Sandeep'
+      };
+      // this.changeDetectorRef.markForCheck();
+    }, 5000);
+
     console.log("Inside btn Click ---END");
   }
 }
