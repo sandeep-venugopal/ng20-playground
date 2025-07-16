@@ -1,24 +1,30 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, inject, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Dashboard } from "./dashboard/dashboard";
+import { Exchange } from './exchange';
+import { Card } from './card/card';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Dashboard],
+  imports: [RouterOutlet, Dashboard, Card],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   protected title = 'ng20-playground';
+  protected exchangeService = inject(Exchange);
 
-  appConfig: any = {
+  appConfig = signal({
     angular: {
       version: 20.0,
       cdStrategy: 'Default',
       style: 'scss'
     },
     client: 'Sandeep'
-  }
+  });
+
+  exchangeRateSignal = signal(90);
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside App comp#ngOnChanges ---");
@@ -27,7 +33,7 @@ export class App implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterC
     console.log("---Inside App comp#ngOnInit ---");
   }
   ngDoCheck(): void {
-    console.log("\n\n\n---Inside App comp#ngDoCheck ---");
+    console.log("\n---Inside App comp#ngDoCheck ---");
   }
   ngAfterContentInit(): void {
     console.log("---Inside App comp#ngAfterContentInit ---");
@@ -44,22 +50,18 @@ export class App implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterC
 
   onBtnClick() {
     console.log(`Inside Dashboard#onBtnClick`);
-
     console.log("Inside btn Click ---START");
-
-    setTimeout(() => {
-      console.log(`Inside setTimeout..`);
-      this.appConfig = {
-        angular: {
-          version: 30.0,
-          cdStrategy: 'Default',
-          style: 'scss'
-        },
-        client: 'Sandeep'
-      };
-      // this.changeDetectorRef.markForCheck();
-    }, 5000);
-
+    this.appConfig.update(currentValue => {
+      currentValue.client = 'Enrion';
+      currentValue.angular.version = 20.1;
+      return currentValue;
+    });
+    console.log(`Fetching rates....`);
+    this.exchangeService.getLatestRates().subscribe((response: any) => {
+      console.log("\nExchange Rates Response....", response);
+      this.exchangeService.updateExchangeRate(response['rates']['INR']);
+      console.log('\n');
+    });
     console.log("Inside btn Click ---END");
   }
 }

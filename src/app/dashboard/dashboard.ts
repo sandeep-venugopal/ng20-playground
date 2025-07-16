@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, EventEmitter, input, Input, OnChanges, OnInit, Output, signal, SimpleChanges } from '@angular/core';
 import { InfoCard } from "../info-card/info-card";
 import { AvatarDisplay } from "../avatar-display/avatar-display";
 
@@ -11,32 +11,24 @@ import { AvatarDisplay } from "../avatar-display/avatar-display";
 })
 export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
 
-  @Input() appConfig: any;
-  @Output() testOutputEmit = new EventEmitter();
-
-  profile: any = {
+  appConfig = input.required<any>();
+  profile = signal({
     name: 'Sandeep',
     age: 38,
     job: 'SSE'
-  }
+  });
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-
-  }
+  @Output() testEvent = new EventEmitter();
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside Dashboard comp#ngOnChanges ---");
-    if (changes['appConfig']) {
-      console.log("P Value: ", changes['appConfig'].previousValue);
-      console.log("C Value: ", changes['appConfig'].currentValue);
-    }
   }
   ngOnInit(): void {
     console.log("---Inside Dashboard comp#ngOnInit ---");
   }
 
   ngDoCheck(): void {
-    console.log("---Inside Dashboard comp#ngDoCheck ---", this.appConfig);
+    console.log("---Inside Dashboard comp#ngDoCheck ---");
   }
   ngAfterContentInit(): void {
     console.log("---Inside Dashboard comp#ngAfterContentInit ---");
@@ -52,6 +44,6 @@ export class Dashboard implements OnChanges, OnInit, DoCheck, AfterContentInit, 
   }
 
   onBtnClick() {
-   this.testOutputEmit.emit();
+   this.testEvent.emit();
   }
 }

@@ -1,2 +1,3 @@
 <h1>Welcome to NG20 Playground App!</h1>
-<app-dashboard [appConfig]="appConfig" (testOutputEmit)="onBtnClick()"></app-dashboard>
+<app-dashboard [appConfig]="appConfig()" (testEvent)="onBtnClick()"></app-dashboard>
+<app-card [appConfig]="appConfig()"></app-card>

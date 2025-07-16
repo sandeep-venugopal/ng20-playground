@@ -1,5 +1,6 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, EventEmitter, inject, input, Input, OnChanges, OnInit, Output, output, SimpleChanges } from '@angular/core';
 import { AvatarDisplay } from "../avatar-display/avatar-display";
+import { Exchange } from '../exchange';
 
 @Component({
   selector: 'app-info-card',
@@ -9,15 +10,14 @@ import { AvatarDisplay } from "../avatar-display/avatar-display";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfoCard implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
-  @Input() appConfig: any;
+  appConfig = input.required<any>();
+  profile = input.required<any>();
+  @Output() testEvent = new EventEmitter();
 
+  protected exchangeService = inject(Exchange);
   
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside InfoCard comp#ngOnChanges ---");
-    if (changes['appConfig']) {
-      console.log('Previous Value: ', changes['appConfig'].previousValue);
-      console.log('Current Value', changes['appConfig'].currentValue);
-    }
   }
   ngOnInit(): void {
     console.log("---Inside InfoCard comp#ngOnInit ---");
@@ -39,6 +39,7 @@ export class InfoCard implements OnChanges, OnInit, DoCheck, AfterContentInit, A
   }
 
   onBtnClick() {
-    console.log(`Inside Dashboard#onBtnClick`);
+    console.log(`Inside InfoCard#onBtnClick`);
+    this.testEvent.emit();
   }
 }

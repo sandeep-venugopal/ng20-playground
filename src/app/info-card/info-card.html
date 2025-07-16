@@ -1,9 +1,9 @@
 <h3>Info Card!</h3>
 <h4>App Config Details:</h4>
 <ul>
-    <li>Version: {{ appConfig?.angular.version }}</li>
-    <li>Strategy: {{ appConfig?.angular?.cdStrategy }}</li>
-    <li>Style: {{ appConfig?.angular?.style }}</li>
-    <li>Client: {{ appConfig?.client}}</li>
+    <li>Version: {{ appConfig()?.angular?.version }}</li>
+    <li>Strategy: {{ appConfig()?.angular?.cdStrategy }}</li>
+    <li>Style: {{ appConfig()?.angular?.style }}</li>
+    <li>Client: {{ appConfig()?.client}}</li>
 </ul>
-<ng-content></ng-content>
+ <app-avatar-display [profile]="profile()" (testEvent)="onBtnClick()"></app-avatar-display>

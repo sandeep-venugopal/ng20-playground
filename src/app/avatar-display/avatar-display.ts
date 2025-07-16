@@ -1,4 +1,5 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, DoCheck, EventEmitter, inject, input, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Exchange } from '../exchange';
 
 
 @Component({
@@ -9,25 +10,12 @@ import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarDisplay implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
-  @Input() profile: any;
-  @Input() appConfig: any;
-  @Output() testOutputEmit = new EventEmitter();
+  @Output() testEvent = new EventEmitter();
+  profile = input.required<any>();
+  protected exchangeService = inject(Exchange);
   
   ngOnChanges(changes: SimpleChanges): void {
     console.log("---Inside AvatarDisplay comp#ngOnChanges ---");
-    // Important: Check if the reference actually changed
-    console.log(changes);
-    if (changes['profile']) {
-      console.log('Current Profile Value:', changes['profile'].currentValue);
-    } else {
-       console.warn('profile object reference did NOT change.');
-    }
-
-    if (changes['appConfig']) {
-      console.log(JSON.stringify(changes['appConfig'].currentValue, null, 2));      
-    } else {
-       console.warn('appConfig object reference did NOT change.');
-    }
   }
   ngOnInit(): void {
     console.log("---Inside AvatarDisplay comp#ngOnInit ---");
@@ -50,8 +38,7 @@ export class AvatarDisplay implements OnChanges, OnInit, DoCheck, AfterContentIn
 
   onBtnClick() {
     console.log(`Inside AvatarDisplay#onBtnClick`);
-    this.profile.name = "Lords";
-    this.testOutputEmit.emit();
+    this.testEvent.emit();
   }
 
 }

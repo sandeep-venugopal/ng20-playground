@@ -1,8 +1,9 @@
 <h3>Avatar Display!</h3>
 <ul>
-    <li>Name: {{profile?.name}}</li>
-    <li>Age: {{profile?.age}}</li>
-    <li>Job: {{profile?.job}}</li>
+    <li>Name: {{profile()?.name}}</li>
+    <li>Age: {{profile()?.age}}</li>
+    <li>Job: {{profile()?.job}}</li>
+    <li>Exchange Rate {{ exchangeService.getExchangeRateSignal()()}}</li>
 </ul>
 
 <button (click)="onBtnClick()">Click Me!</button>
